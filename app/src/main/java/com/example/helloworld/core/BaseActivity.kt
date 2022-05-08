@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.helloworld.BuildConfig
 import com.example.helloworld.R
  import java.lang.reflect.ParameterizedType
 import kotlin.random.Random

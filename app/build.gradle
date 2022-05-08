@@ -3,15 +3,16 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'kotlinx-serialization'
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.helloworld"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -23,6 +24,11 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField "String", "BASE_URL", "\"http://192.168.0.187:3000/\""
+            buildConfigField "String", "DB_NAME", "\"jomibaba_db_debug\""
+            buildConfigField "String", "PREF_NAME", "\"jomibaba_debug_pref\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -70,10 +76,20 @@ kapt {
 }
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    // Activity KTX for viewModels()
+    implementation "androidx.activity:activity-ktx:1.4.0"
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -82,7 +98,7 @@ dependencies {
 
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
-    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "androidx.recyclerview:recyclerview:1.3.0"
     implementation 'androidx.window:window:1.0.0'
     implementation "androidx.window:window-java:1.0.0"
     implementation "androidx.preference:preference:1.2.0"
@@ -94,18 +110,21 @@ dependencies {
     kapt 'com.google.dagger:hilt-compiler:2.41'
 
 
-    implementation "androidx.fragment:fragment-ktx:1.4.1"
+    // Activity KTX for viewModels()
+    implementation "androidx.activity:activity-ktx:1.6.1"
+    //fragment
+    implementation "androidx.fragment:fragment-ktx:1.5.5"
 
     // material component
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.8.0'
 
     // room
-    implementation "androidx.room:room-runtime:2.4.2"
-    kapt "androidx.room:room-compiler:2.4.2"
-    implementation "androidx.room:room-rxjava2:2.4.2"
-    testImplementation "androidx.room:room-testing:2.4.2"
-    implementation 'androidx.room:room-ktx:2.4.2'
-    kapt "androidx.room:room-compiler:2.4.2"
+    implementation "androidx.room:room-runtime:2.5.0"
+    kapt "androidx.room:room-compiler:2.5.0"
+    implementation "androidx.room:room-rxjava2:2.5.0"
+    testImplementation "androidx.room:room-testing:2.5.0"
+    implementation 'androidx.room:room-ktx:2.5.0'
+    kapt "androidx.room:room-compiler:2.5.0"
 
     // Kotlin
     def nav_version = "2.4.2"
@@ -127,7 +146,9 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor")
     // gson
     implementation 'com.google.code.gson:gson:2.8.9'
-
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
 
     //glide
@@ -139,8 +160,10 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottieVersion"
     // Permission
     implementation 'com.karumi:dexter:6.2.3'
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
     //Splash
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
 
+    //DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }
